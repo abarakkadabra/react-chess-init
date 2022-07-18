@@ -4,7 +4,6 @@
 }
 
 .app {
-    margin: 0 auto;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -15,8 +14,8 @@
 .board {
     display: flex;
     flex-wrap: wrap;
-    width: calc(64px*8);
-    height: calc(64px*8);
+    width: calc(64px * 8);
+    height: calc(64px * 8);
 }
 
 .cell {

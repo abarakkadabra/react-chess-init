@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import BoardComponent from './components/BoardComponent';
 import { Board } from './models/Board';
+import './App.css';
 
 const App = () => {
   
@@ -17,7 +19,7 @@ const App = () => {
 
   return (
     <div>
-    
+      <BoardComponent board={board} setBoard={setBoard}/>
     </div>
   );
 };
