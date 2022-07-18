@@ -7,11 +7,14 @@
     width: 100vw;
     height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+
 }
 
 .board {
+
+    margin: auto;
     display: flex;
     flex-wrap: wrap;
     width: calc(64px * 8);
@@ -28,6 +31,12 @@
 
 .black {
     background-color: gray;
+}
+
+.cell img {
+    width: 48px;
+    height: 48px;
+    position: relative;
 }
 
 .white {

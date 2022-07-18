@@ -1,6 +1,6 @@
 import { Board } from "./Board";
 import { Colors } from "./Colors";
-import { Figure } from "./figures/figure";
+import { Figure } from "./figures/Figure";
 
 export class Cell {
     readonly x: number;
@@ -10,9 +10,9 @@ export class Cell {
     board: Board;
     available: boolean;
     id: number; //react keys
-    constructor(board: Board, x: number, y: number, color: Colors, figure: Figure | null){
+    constructor(board: Board, x: number, y: number, color: Colors, figure: Figure | null) {
         this.x = x;
-        this.y=y;
+        this.y = y;
         this.color = color;
         this.board = board;
         this.figure = figure;
