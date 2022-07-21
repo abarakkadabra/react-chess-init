@@ -19,6 +19,7 @@ const App = () => {
 
   return (
     <div>
+      <button className='myButton' onClick={restart}>Restart</button>
       <BoardComponent board={board} setBoard={setBoard} />
     </div>
   );
