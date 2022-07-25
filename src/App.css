@@ -3,13 +3,13 @@
     padding: 0;
 }
 
-#root {
+.content {
     width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-
+    flex-direction: row;
 }
 
 .board {
@@ -58,10 +58,12 @@
     border-radius: 50%;
     background-color: aqua;
 }
-.availableFigure{
+
+.availableFigure {
     background-color: green;
 }
-.myButton{
+
+.myButton {
     width: 120px;
     height: 60px;
     border: 2px solid black;
@@ -69,4 +71,15 @@
     background-color: #52f28a;
     font-size: 20px;
     cursor: pointer;
+}
+
+.lost {
+
+    height: 220px;
+    background-color: lightgrey;
+}
+
+.lost img {
+    height: 20px;
+    width: 20px;
 }

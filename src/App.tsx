@@ -4,6 +4,7 @@ import { Board } from './models/Board';
 import './App.css';
 import { Player } from './models/Player';
 import { Colors } from './models/Colors';
+import LostFigures from './components/LostFigures';
 
 const App = () => {
   const [board, setBoard] = useState(new Board());
@@ -23,16 +24,29 @@ const App = () => {
     setCurrentPlayer(whitePlayer);
   }
 
-  function swapPlayers(){
+  function swapPlayers() {
     setCurrentPlayer(currentPlayer?.color === Colors.WHITE ? blackPlayer : whitePlayer)
   }
 
   return (
-    <div>
-      <button className='myButton' onClick={restart}>Restart</button>
-      <h3>{currentPlayer?.color}'s move</h3>
-      <BoardComponent board={board} setBoard={setBoard} currentPlayer={currentPlayer} swapPlayers={swapPlayers}/>
+
+    <div className='content'>
+      <div>
+        <button className='myButton' onClick={restart}>Restart</button>
+        <h3>{currentPlayer?.color}'s move</h3>
+        <BoardComponent board={board} setBoard={setBoard} currentPlayer={currentPlayer} swapPlayers={swapPlayers} />
+      </div><div>
+        <LostFigures
+          title='White captured pieces:'
+          figures={board.lostWhiteFigures}
+        />
+        <LostFigures
+          title='Black captured pieces:'
+          figures={board.lostBlackFigures}
+        />
+      </div>
     </div>
+
   );
 };
 
