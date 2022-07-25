@@ -24,8 +24,7 @@ export class Pawn extends Figure {
         const firstMoveDirection = this.cell.figure?.color === Colors.BLACK ? 2: -2;
 
         if (
-            (target.y === this.cell.y + direction || 
-                this.isFirstMove && (target.y === this.cell.y + firstMoveDirection)) 
+            (target.y === this.cell.y + direction || (this.isFirstMove && (target.y === this.cell.y + firstMoveDirection))) 
             && target.x === this.cell.x 
             && this.cell.board.getCell(target.x, target.y).isEmpty() 
             ) return true
