@@ -27,6 +27,12 @@ export class Cell {
     moveFigure (target: Cell){
         if (this.figure && this.figure?.canMove(target)){
             this.figure.moveFigure(target);
+            if(target.figure?.color === Colors.WHITE){
+                this.board.lostWhiteFigures.push(target.figure)
+            }
+            if(target.figure?.color === Colors.BLACK){
+                this.board.lostBlackFigures.push(target.figure)
+            }
             target.setFigure(this.figure);
             this.figure = null;
         }
