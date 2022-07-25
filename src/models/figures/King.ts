@@ -13,7 +13,9 @@ export class King extends Figure {
 
     canMove(target: Cell): boolean {
         if(!super.canMove(target)) return false
-
+        const distX = Math.abs(target.x - this.cell.x) > 1
+        const distY = Math.abs(target.y - this.cell.y) > 1
+        if(distX || distY) return false
         return true
     }
 }
