@@ -72,4 +72,11 @@ export class Cell {
 
         return true;
     }
+
+    isEnemy(target:Cell){
+        if(target.figure){
+            return this.figure?.color !== target.figure?.color
+        }
+        return false
+    }
 }
