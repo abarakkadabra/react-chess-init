@@ -38,18 +38,19 @@ const App = () => {
         <div className="misc"></div>
       </div>
 
-      <div className='content__body'>  
+      <div className='content__body'>
         <BoardComponent board={board} setBoard={setBoard} currentPlayer={currentPlayer} swapPlayers={swapPlayers} />
-        <div className='content__body-left'>
-        <LostFigures
-          title='White captured pieces:'
-          figures={board.lostWhiteFigures}
-        />
-        
-        <LostFigures
-          title='Black captured pieces:'
-          figures={board.lostBlackFigures}
-        />
+        <div className='content__body-right'>
+          <LostFigures
+            title='White captured pieces:'
+            figures={board.lostWhiteFigures}
+          />
+          <div className="history"></div>
+          <LostFigures
+            title='Black captured pieces:'
+            figures={board.lostBlackFigures}
+          />
+
         </div>
       </div>
       <div className="content__footer"></div>
