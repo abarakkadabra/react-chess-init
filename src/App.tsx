@@ -31,20 +31,29 @@ const App = () => {
   return (
 
     <div className='content'>
-      <div>
+      <div className="content__header">
         <button className='myButton' onClick={restart}>Restart</button>
-        <h3>{currentPlayer?.color}'s move</h3>
+        <h2> || {currentPlayer?.color} to move ||</h2>
+        <div className="scheme__name"></div>
+        <div className="misc"></div>
+      </div>
+
+      <div className='content__body'>  
         <BoardComponent board={board} setBoard={setBoard} currentPlayer={currentPlayer} swapPlayers={swapPlayers} />
-      </div><div>
+        <div className='content__body-left'>
         <LostFigures
           title='White captured pieces:'
           figures={board.lostWhiteFigures}
         />
+        
         <LostFigures
           title='Black captured pieces:'
           figures={board.lostBlackFigures}
         />
+        </div>
       </div>
+      <div className="content__footer"></div>
+
     </div>
 
   );
