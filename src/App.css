@@ -82,6 +82,10 @@
 
 .lost {
     background-color: lightgrey;
+    display: flex;
+    flex-direction: row;
+    width: 185px;
+    flex-wrap: wrap;
 }
 
 .lost img {

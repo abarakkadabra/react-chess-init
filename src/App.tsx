@@ -5,6 +5,7 @@ import './App.css';
 import { Player } from './models/Player';
 import { Colors } from './models/Colors';
 import LostFigures from './components/LostFigures';
+import Timer from './components/Timer';
 
 const App = () => {
   const [board, setBoard] = useState(new Board());
@@ -15,6 +16,7 @@ const App = () => {
   useEffect(() => {
     restart()
   }, [])
+
 
   function restart() {
     const newBoard = new Board()
@@ -32,7 +34,7 @@ const App = () => {
 
     <div className='content'>
       <div className="content__header">
-        <button className='myButton' onClick={restart}>Restart</button>
+        
         <h2> || {currentPlayer?.color} to move ||</h2>
         <div className="scheme__name"></div>
         <div className="misc"></div>
@@ -45,6 +47,7 @@ const App = () => {
             title='White captured pieces:'
             figures={board.lostWhiteFigures}
           />
+          <Timer restart={restart} currentPlayer={currentPlayer}/>
           <div className="history"></div>
           <LostFigures
             title='Black captured pieces:'
