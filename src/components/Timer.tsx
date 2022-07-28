@@ -18,7 +18,7 @@ const Timer: FC<TimerProps> = ({ currentPlayer, restart }) => {
     } 
 
     useEffect(() => {
-        startTimer()
+        startTimer(gameOver)
     }, [currentPlayer])
     
     function restartHandler(){
