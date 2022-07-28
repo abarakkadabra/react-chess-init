@@ -6,17 +6,17 @@ import { Player } from './models/Player';
 import { Colors } from './models/Colors';
 import LostFigures from './components/LostFigures';
 import Timer from './components/Timer';
+import { AppContext } from './context/AppContext';
 
 const App = () => {
   const [board, setBoard] = useState(new Board());
-  const [whitePlayer, setWhitePlayer] = useState(new Player(Colors.WHITE))
-  const [blackPlayer, setBlackPlayer] = useState(new Player(Colors.BLACK))
+  const [whitePlayer, ] = useState(new Player(Colors.WHITE))
+  const [blackPlayer, ] = useState(new Player(Colors.BLACK))
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null)
-
+  
   useEffect(() => {
     restart()
   }, [])
-
 
   function restart() {
     const newBoard = new Board()
@@ -33,6 +33,7 @@ const App = () => {
   return (
 
     <div className='content'>
+      <AppContext.Provider value={{gameOver:false}}>
       <div className="content__header">
         
         <h2> || {currentPlayer?.color} to move ||</h2>
@@ -53,11 +54,10 @@ const App = () => {
             title='Black captured pieces:'
             figures={board.lostBlackFigures}
           />
-
         </div>
       </div>
       <div className="content__footer"></div>
-
+      </AppContext.Provider>
     </div>
 
   );
