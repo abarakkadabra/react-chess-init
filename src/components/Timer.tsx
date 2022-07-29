@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useContext, useEffect, useRef, useState } from 'react';
+import { AppContext } from '../context/AppContext';
 import { Colors } from '../models/Colors';
 import { Player } from '../models/Player';
 
@@ -10,34 +11,36 @@ interface TimerProps {
 const Timer: FC<TimerProps> = ({ currentPlayer, restart }) => {
     const [blackTime, setBlackTime] = useState(5)
     const [whiteTime, setWhiteTime] = useState(5)
+    
     let timer = useRef<null | ReturnType<typeof setInterval>>(null);
     const [winnerTitle, setWinnerTitle] = useState<string>('')
-
+    const context = useContext(AppContext)
+    console.log(context?.gameOver)
+    
     useEffect(() => {
-
-        if (timer.current) {
-            clearInterval(timer.current)
-        }
-        // const callback = currentPlayer?.color === Colors.WHITE ? decrementWhiteTimer() : decrementBlackTimer()
-        timer.current = setInterval(() => {
-            if (currentPlayer?.color === Colors.WHITE) {
-                if (whiteTime !== 0) {
-                    setWhiteTime(prev => prev - 1)
-                } else {
-                    console.log('Times up! Black won!')
-                    setWinnerTitle('Times up! Black won!')
-                }
-            } else {
-                if (blackTime !== 0) {
-                    setBlackTime(prev => prev - 1)
-                } else {
-
-                    console.log('Times up! White won!')
-                    setWinnerTitle('Times up! White won!')
-                }
+        if (!context?.firstMove){
+            if (timer.current) {
+                clearInterval(timer.current)
             }
-        }, 1000)
-
+            // const callback = currentPlayer?.color === Colors.WHITE ? decrementWhiteTimer() : decrementBlackTimer()
+            timer.current = setInterval(() => {
+                if (currentPlayer?.color === Colors.WHITE) {
+                    if (whiteTime !== 0) {
+                        setWhiteTime(prev => prev - 1)
+                    } else {
+                        setWinnerTitle('Times up! Black won!')
+                        
+                    }
+                } else {
+                    if (blackTime !== 0) {
+                        setBlackTime(prev => prev - 1)
+                    } else {
+                        setWinnerTitle('Times up! White won!');
+                        
+                    }
+                }
+            }, 1000)
+        }
     }, [currentPlayer, blackTime, whiteTime, winnerTitle])
 
     function restartHandler() {

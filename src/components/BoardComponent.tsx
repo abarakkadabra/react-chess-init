@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
+import { AppContext } from '../context/AppContext';
 import { Board } from '../models/Board';
 import { Cell } from '../models/Cell';
 import { Player } from '../models/Player';
@@ -12,14 +13,17 @@ interface BoardProps {
 }
 
 const BoardComponent: FC<BoardProps> = ({ board, setBoard, currentPlayer, swapPlayers }) => {
-
     const [selectedCell, setSelectedCell] = useState<Cell | null>(null)
+    const context = useContext(AppContext)
 
     function clickOnCell(cell: Cell) {
+        if(context?.gameOver){
+            return
+        }
         if (selectedCell && selectedCell !== cell && selectedCell?.figure?.canMove(cell)) {
             selectedCell.moveFigure(cell);
             swapPlayers();
-            setSelectedCell(null);
+            setSelectedCell(null);            
         }
         else {
             if (currentPlayer?.color === cell.figure?.color)

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import BoardComponent from './components/BoardComponent';
 import { Board } from './models/Board';
 import './App.css';
@@ -13,8 +13,10 @@ const App = () => {
   const [whitePlayer, ] = useState(new Player(Colors.WHITE))
   const [blackPlayer, ] = useState(new Player(Colors.BLACK))
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null)
-  
-  useEffect(() => {
+  const [firstMove, setFirstMove] = useState(true)
+  const [gameOver, ] = useState(false)
+
+  useEffect(() => { 
     restart()
   }, [])
 
@@ -28,12 +30,14 @@ const App = () => {
 
   function swapPlayers() {
     setCurrentPlayer(currentPlayer?.color === Colors.WHITE ? blackPlayer : whitePlayer)
+    if(firstMove){setFirstMove(false)} 
+    // console.log("first move in APP  -  "+firstMove)
   }
 
   return (
 
     <div className='content'>
-      <AppContext.Provider value={{gameOver:false}}>
+      <AppContext.Provider value={{firstMove, gameOver}}>
       <div className="content__header">
         
         <h2> || {currentPlayer?.color} to move ||</h2>
