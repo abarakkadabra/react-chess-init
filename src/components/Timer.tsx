@@ -5,38 +5,38 @@ import { Player } from '../models/Player';
 
 interface TimerProps {
     currentPlayer: Player | null;
-    restart: () => void
+    restart: () => void;
+    setGameOver: (gameOver:boolean) => void;
 }
 
-const Timer: FC<TimerProps> = ({ currentPlayer, restart }) => {
-    const [blackTime, setBlackTime] = useState(5)
-    const [whiteTime, setWhiteTime] = useState(5)
+const Timer: FC<TimerProps> = ({ currentPlayer, restart, setGameOver  }) => {
+    const [blackTime, setBlackTime] = useState(300)
+    const [whiteTime, setWhiteTime] = useState(300)
     
     let timer = useRef<null | ReturnType<typeof setInterval>>(null);
     const [winnerTitle, setWinnerTitle] = useState<string>('')
     const context = useContext(AppContext)
-    console.log(context?.gameOver)
     
     useEffect(() => {
-        if (!context?.firstMove){
             if (timer.current) {
                 clearInterval(timer.current)
             }
             // const callback = currentPlayer?.color === Colors.WHITE ? decrementWhiteTimer() : decrementBlackTimer()
+            if (!context?.isfirstMove){
             timer.current = setInterval(() => {
                 if (currentPlayer?.color === Colors.WHITE) {
                     if (whiteTime !== 0) {
                         setWhiteTime(prev => prev - 1)
                     } else {
                         setWinnerTitle('Times up! Black won!')
-                        
+                        setGameOver(true)
                     }
                 } else {
                     if (blackTime !== 0) {
                         setBlackTime(prev => prev - 1)
                     } else {
                         setWinnerTitle('Times up! White won!');
-                        
+                        setGameOver(true)
                     }
                 }
             }, 1000)
@@ -45,8 +45,8 @@ const Timer: FC<TimerProps> = ({ currentPlayer, restart }) => {
 
     function restartHandler() {
         restart()
-        setBlackTime(5)
-        setWhiteTime(5)
+        setBlackTime(300)
+        setWhiteTime(300)
     }
 
     return (

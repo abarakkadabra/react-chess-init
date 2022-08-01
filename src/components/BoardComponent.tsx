@@ -12,7 +12,7 @@ interface BoardProps {
     swapPlayers: () => void;
 }
 
-const BoardComponent: FC<BoardProps> = ({ board, setBoard, currentPlayer, swapPlayers }) => {
+const BoardComponent: FC<BoardProps> = ({ board, setBoard, currentPlayer, swapPlayers}) => {
     const [selectedCell, setSelectedCell] = useState<Cell | null>(null)
     const context = useContext(AppContext)
 
@@ -23,7 +23,9 @@ const BoardComponent: FC<BoardProps> = ({ board, setBoard, currentPlayer, swapPl
         if (selectedCell && selectedCell !== cell && selectedCell?.figure?.canMove(cell)) {
             selectedCell.moveFigure(cell);
             swapPlayers();
-            setSelectedCell(null);            
+            setSelectedCell(null);         
+            checkIfCheck(cell);
+            //check if it is check here...   
         }
         else {
             if (currentPlayer?.color === cell.figure?.color)
@@ -34,7 +36,10 @@ const BoardComponent: FC<BoardProps> = ({ board, setBoard, currentPlayer, swapPl
     useEffect(() => {
         highlightCells()
     }, [selectedCell])
+    function checkIfCheck( cell:Cell){
+        //get opposite Kings cell
 
+    }
     function highlightCells() {
         board.highlightCells(selectedCell);
         updateBoard()

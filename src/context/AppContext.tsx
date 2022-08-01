@@ -1,7 +1,7 @@
 import { createContext } from "react"
 
 interface AppContextInterface{
-    firstMove: boolean
+    isfirstMove: boolean
     gameOver: boolean
 }
 

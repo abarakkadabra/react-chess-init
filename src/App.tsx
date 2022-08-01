@@ -13,8 +13,8 @@ const App = () => {
   const [whitePlayer, ] = useState(new Player(Colors.WHITE))
   const [blackPlayer, ] = useState(new Player(Colors.BLACK))
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null)
-  const [firstMove, setFirstMove] = useState(true)
-  const [gameOver, ] = useState(false)
+  const [isfirstMove, setIsFirstMove] = useState(true)
+  const [gameOver, setGameOver] = useState(false)
 
   useEffect(() => { 
     restart()
@@ -24,20 +24,23 @@ const App = () => {
     const newBoard = new Board()
     newBoard.initCells();
     newBoard.setFigures();
+    setGameOver(false);
+    setIsFirstMove(true)
     setBoard(newBoard);
-    setCurrentPlayer(whitePlayer);
+    setCurrentPlayer(whitePlayer);    
   }
 
   function swapPlayers() {
     setCurrentPlayer(currentPlayer?.color === Colors.WHITE ? blackPlayer : whitePlayer)
-    if(firstMove){setFirstMove(false)} 
-    // console.log("first move in APP  -  "+firstMove)
+    if(isfirstMove){
+      setIsFirstMove(false)
+    } 
   }
 
   return (
 
     <div className='content'>
-      <AppContext.Provider value={{firstMove, gameOver}}>
+      <AppContext.Provider value={{isfirstMove, gameOver}}>
       <div className="content__header">
         
         <h2> || {currentPlayer?.color} to move ||</h2>
@@ -46,13 +49,13 @@ const App = () => {
       </div>
 
       <div className='content__body'>
-        <BoardComponent board={board} setBoard={setBoard} currentPlayer={currentPlayer} swapPlayers={swapPlayers} />
+        <BoardComponent board={board} setBoard={setBoard} currentPlayer={currentPlayer} swapPlayers={swapPlayers}/>
         <div className='content__body-right'>
           <LostFigures
             title='White captured pieces:'
             figures={board.lostWhiteFigures}
           />
-          <Timer restart={restart} currentPlayer={currentPlayer}/>
+          <Timer restart={restart} currentPlayer={currentPlayer}  setGameOver={setGameOver} />
           <div className="history"></div>
           <LostFigures
             title='Black captured pieces:'

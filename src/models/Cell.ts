@@ -1,6 +1,6 @@
 import { Board } from "./Board";
 import { Colors } from "./Colors";
-import { Figure } from "./figures/Figure";
+import { Figure, FigureNames } from "./figures/Figure";
 
 export class Cell {
     readonly x: number;
@@ -34,9 +34,34 @@ export class Cell {
                 this.board.lostBlackFigures.push(target.figure)
             }
             target.setFigure(this.figure);
+            this.isKingUnderAttack(this.figure)
             this.figure = null;
         }
     }
+    
+    isKingUnderAttack(figure:Figure|null){
+        // let enemyKingCell: number[] = [];
+        let enemyKingCell:Cell;
+        this.board.cells.forEach(cell=>{
+            cell.forEach(curCell=>{
+                if(curCell.figure?.name===FigureNames.KING && this.figure?.color !== curCell.figure.color){
+                // console.log('x: ' + curCell.x + 'y: ' + curCell.y + 'colors: ' + this.figure?.color + curCell.figure.color)
+                    // enemyKingCell.push(curCell.x);
+                    // enemyKingCell.push(curCell.y);
+                    // enemyKingCell = this.board.getCell(curCell.x,curCell.y,)
+                    
+                    console.log(curCell)
+                    console.log(this.figure?.canMove(curCell))
+                    
+                    if(this.figure?.canMove(curCell)){    
+                        console.log('CHECK!!')
+                    }
+                }
+            })
+        })
+        
+    }
+
     isEmpty(){
         return this.figure === null;
     }

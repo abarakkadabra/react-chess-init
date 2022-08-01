@@ -1,5 +1,13 @@
 #TODO
-1)check & checkmate
-2)flip board
-3)timer starts with first move
-4)after timer ends current player lose
+- current: check & checkmate
+- flip board
+- moves history
+- sort captured figures
+- proper timer (M::S)
+- Board letters & digits
+- Castle
+
+#DONE
+- timer starts after first move - ✓ done
+- after timer ends current player lose - ✓ done
+- gameover - ✓ done
