@@ -27,6 +27,7 @@ export class Cell {
     moveFigure(target: Cell) {
         if (this.figure && this.figure?.canMove(target)) {
             this.figure.moveFigure(target);
+            
             if (target.figure?.color === Colors.WHITE) {
                 this.board.lostWhiteFigures.push(target.figure)
             }
@@ -34,26 +35,41 @@ export class Cell {
                 this.board.lostBlackFigures.push(target.figure)
             }
             target.setFigure(this.figure);
-            console.log(this.figure.color)
             this.isKingUnderAttack(this.figure.color)
             this.figure = null;
         }
     }
+
+
     isKingUnderAttack(color: Colors) {
         let enemyKingCell: Cell;
         this.board.cells.forEach(cellRow => {
             cellRow.forEach(cell => {
-                if (cell.figure?.name === FigureNames.KING && color !== cell.figure.color) {
+                
+                if(cell.figure){
+                if (cell.figure?.name === FigureNames.KING && cell.figure?.color !== color ) {
                     enemyKingCell = cell
                 }
-                if (cell.figure !== undefined && enemyKingCell !== undefined) {
-                    if (cell.figure?.canMove(enemyKingCell)) {
-                        console.log(cell.figure?.color + 'CHECK!!')
-                    }
-                }
+            }
             })
         })
-    }
+        this.board.cells.forEach(cellRow => {
+            cellRow.forEach(cell => {
+                if(cell.figure){
+
+                if(enemyKingCell && cell.figure?.canMove(enemyKingCell)){
+                    console.log('CHECK!')
+                }    
+                // if (enemyKingCell !== undefined && color===Colors.WHITE) {
+                //     console.log('CHECK')
+                //     if (cell.figure?.canMove(enemyKingCell)) {
+                //         console.log(enemyKingCell.figure?.color + 'CHECK!!')
+                //     }
+                // }
+            }
+            })
+        })
+}
     isEmpty() {
         return this.figure === null;
     }
