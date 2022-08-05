@@ -25,7 +25,9 @@ export class Cell {
         this.figure.cell = this;
     }
     moveFigure(target: Cell) {
+        
         if (this.figure && this.figure?.canMove(target)) {
+
             this.figure.moveFigure(target);
             
             if (target.figure?.color === Colors.WHITE) {
@@ -34,14 +36,17 @@ export class Cell {
             if (target.figure?.color === Colors.BLACK) {
                 this.board.lostBlackFigures.push(target.figure)
             }
+
             target.setFigure(this.figure);
             this.isKingUnderAttack(this.figure.color)
+            
             this.figure = null;
+            
         }
     }
 
 
-    isKingUnderAttack(color: Colors) {
+    isKingUnderAttack(color: Colors): boolean {
         let enemyKingCell: Cell;
         this.board.cells.forEach(cellRow => {
             cellRow.forEach(cell => {
@@ -56,9 +61,9 @@ export class Cell {
         this.board.cells.forEach(cellRow => {
             cellRow.forEach(cell => {
                 if(cell.figure){
-
                 if(enemyKingCell && cell.figure?.canMove(enemyKingCell)){
                     console.log('CHECK!')
+                    return true
                 }    
                 // if (enemyKingCell !== undefined && color===Colors.WHITE) {
                 //     console.log('CHECK')
@@ -68,7 +73,9 @@ export class Cell {
                 // }
             }
             })
+            
         })
+        return false
 }
     isEmpty() {
         return this.figure === null;
