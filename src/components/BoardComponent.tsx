@@ -2,6 +2,8 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { Board } from '../models/Board';
 import { Cell } from '../models/Cell';
+import { Colors } from '../models/Colors';
+import { FigureNames } from '../models/figures/Figure';
 import { Player } from '../models/Player';
 import CellComponent from './CellComponent';
 
@@ -24,7 +26,7 @@ const BoardComponent: FC<BoardProps> = ({ board, setBoard, currentPlayer, swapPl
             selectedCell.moveFigure(cell);
             swapPlayers();
             setSelectedCell(null);         
-            checkIfCheck(cell);
+            console.log(checkIfCheck(currentPlayer?.color));
             //check if it is check here...   
         }
         else {
@@ -36,8 +38,35 @@ const BoardComponent: FC<BoardProps> = ({ board, setBoard, currentPlayer, swapPl
     useEffect(() => {
         highlightCells()
     }, [selectedCell])
-    function checkIfCheck( cell:Cell){
-        //get opposite Kings cell
+
+    function checkIfCheck( color:Colors | undefined) {
+            let res:boolean=false
+            if (color === undefined){
+                return res
+            }
+            let enemyKingCell: Cell;
+
+            board.cells.forEach(cellRow => {
+                cellRow.forEach(cell => {
+                    
+                    if(cell.figure){
+                    if (cell.figure?.name === FigureNames.KING && cell.figure?.color !== color ) {
+                        enemyKingCell = cell
+                    }
+                }
+                })
+            })
+            board.cells.forEach(cellRow => {
+                cellRow.forEach(cell => {
+                    if(cell.figure){
+                    if(enemyKingCell && cell.figure?.canMove(enemyKingCell)){
+                        res = true                   
+                    }    
+                }
+                })
+                
+            })
+            return res
 
     }
     function highlightCells() {

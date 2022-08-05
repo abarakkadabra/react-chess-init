@@ -1,6 +1,7 @@
 import { Board } from "./Board";
 import { Colors } from "./Colors";
 import { Figure, FigureNames } from "./figures/Figure";
+import { Pawn } from "./figures/Pawn";
 
 export class Cell {
     readonly x: number;
@@ -37,46 +38,12 @@ export class Cell {
                 this.board.lostBlackFigures.push(target.figure)
             }
 
-            target.setFigure(this.figure);
-            this.isKingUnderAttack(this.figure.color)
-            
+            target.setFigure(this.figure);            
             this.figure = null;
             
         }
     }
 
-
-    isKingUnderAttack(color: Colors): boolean {
-        let enemyKingCell: Cell;
-        this.board.cells.forEach(cellRow => {
-            cellRow.forEach(cell => {
-                
-                if(cell.figure){
-                if (cell.figure?.name === FigureNames.KING && cell.figure?.color !== color ) {
-                    enemyKingCell = cell
-                }
-            }
-            })
-        })
-        this.board.cells.forEach(cellRow => {
-            cellRow.forEach(cell => {
-                if(cell.figure){
-                if(enemyKingCell && cell.figure?.canMove(enemyKingCell)){
-                    console.log('CHECK!')
-                    return true
-                }    
-                // if (enemyKingCell !== undefined && color===Colors.WHITE) {
-                //     console.log('CHECK')
-                //     if (cell.figure?.canMove(enemyKingCell)) {
-                //         console.log(enemyKingCell.figure?.color + 'CHECK!!')
-                //     }
-                // }
-            }
-            })
-            
-        })
-        return false
-}
     isEmpty() {
         return this.figure === null;
     }

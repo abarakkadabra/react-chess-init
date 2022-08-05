@@ -15,6 +15,7 @@ const App = () => {
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null)
   const [isfirstMove, setIsFirstMove] = useState(true)
   const [gameOver, setGameOver] = useState(false)
+  const [check, setCheck] = useState(false)
 
   useEffect(() => { 
     restart()
@@ -40,7 +41,7 @@ const App = () => {
   return (
 
     <div className='content'>
-      <AppContext.Provider value={{isfirstMove, gameOver}}>
+      <AppContext.Provider value={{isfirstMove, gameOver, check}}>
       <div className="content__header">
         
         <h2> || {currentPlayer?.color} to move ||</h2>
